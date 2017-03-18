@@ -1,12 +1,12 @@
 <div class="panel panel-default">
-    <div class="panel-heading">Clicks List</div>
+    <div class="panel-heading">Click List</div>
 
     <table class="table table-hover">
         <thead>
         <tr>
             <th>#</th>
             <th>Ip</th>
-            <th>Referer</th>
+            <th>Referrer</th>
             <th>UserAgent</th>
             <th>Param1</th>
             <th>Param2</th>
@@ -15,7 +15,7 @@
         </thead>
         <tbody>
         {% for click in clicks %}
-            <tr>
+            <tr {% if click.error > 0 %}class="bad-referer"{% endif %}>
                 <td>{{ click.id }}</td>
                 <td>{{ click.ip }}</td>
                 <td>{{ click.referrer }}</td>

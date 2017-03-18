@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ClickController extends Controller
 {
@@ -15,45 +16,64 @@ class ClickController extends Controller
      */
     public function clickAction(Request $request)
     {
-        $firstParam = $request->query->get('param1');
-        $secondParam = $request->query->get('param2');
-
-        $click = new Click();
-        $click->setFirstParam($firstParam);
-        $click->setSecondParam($secondParam);
-        $click->setUserAgent($request->headers->get('user-agent'));
-        $click->setReferrer($request->headers->get('referer'));
-        $click->setIp($request->getClientIp());
-
-        $validator = $this->get('validator');
-        $errors = $validator->validate($click);
-
-        if (count($errors) > 0) {
-
-        }
+        if (!$request->query->has('param1') || !$request->query->has('param2')) {
+            throw new NotFoundHttpException("Need param1 and param2 in request query string");
+        };
 
         $em = $this->getDoctrine()->getManager();
+
+        $click = Click::createByRequest($request);
+
+        $errors = $this->get('validator')->validate($click);
+
+        if (count($errors) > 0) {
+            $alreadyIssetClick = $em->getRepository(Click::class)->findOneBy([
+                'userAgent' => $click->getUserAgent(),
+                'ip' => $click->getIp(),
+                'referrer' => $click->getReferrer(),
+                'firstParam' => $click->getFirstParam()
+            ]);
+
+            $alreadyIssetClick->increaseErrorCounter();
+
+            $em->persist($alreadyIssetClick);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('click_error', ['id' => $alreadyIssetClick->getId()]));
+        }
+
         $em->persist($click);
         $em->flush();
 
-        die('stop');
-        return $this->render('');
+        return $this->redirect($this->generateUrl('click_success', ['id' => $click->getId()]));
     }
 
     /**
-     * @Route("/success", name="click_success")
+     * @Route("/success/{id}", name="click_success")
      */
-    public function successAction()
+    public function successAction(Click $click)
     {
-        return $this->render('@App/Click/success.html.twig');
+        if (!$click) {
+            throw $this->createNotFoundException('The click does not exist');
+        }
+
+        return $this->render('@App/Click/success.html.twig', [
+            'click' => $click
+        ]);
     }
 
     /**
-     * @Route("/error", name="click_error")
+     * @Route("/error/{id}", name="click_error")
      */
-    public function errorAction()
+    public function errorAction(Click $click)
     {
-        return $this->render('@App/Click/error.html.twig');
+        if (!$click) {
+            throw $this->createNotFoundException('The click does not exist');
+        }
+
+        return $this->render('@App/Click/error.html.twig', [
+            'click' => $click
+        ]);
     }
 
     /**

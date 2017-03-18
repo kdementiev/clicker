@@ -5,9 +5,10 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\ClickRepository")
  * @ORM\Table(name="click")
  * @UniqueEntity(fields={"userAgent", "ip", "referrer", "firstParam"})
  */
@@ -63,6 +64,23 @@ class Click
     public function __construct()
     {
         $this->badDomain = false;
+        $this->error = 0;
+    }
+
+    /**
+     * @param Request $request
+     * @return Click
+     */
+    public static function createByRequest(Request $request)
+    {
+        $click = new Click();
+        $click->firstParam = $request->query->get('param1');
+        $click->secondParam = $request->query->get('param2');
+        $click->userAgent = $request->headers->get('user-agent');
+        $click->referrer = $request->headers->get('referer');
+        $click->ip = $request->getClientIp();
+
+        return $click;
     }
 
     /**
@@ -217,6 +235,11 @@ class Click
     public function getError()
     {
         return $this->error;
+    }
+
+    public function increaseErrorCounter()
+    {
+        $this->error++;
     }
 
     /**
