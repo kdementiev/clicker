@@ -7,6 +7,7 @@ use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+
 class LinkGeneratorService implements LinkGeneratorInterface
 {
     const MIN_LINKS_COUNT = 1;

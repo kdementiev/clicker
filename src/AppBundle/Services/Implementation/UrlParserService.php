@@ -4,6 +4,7 @@ namespace AppBundle\Services\Implementation;
 
 use AppBundle\Services\UrlParserInterface;
 
+
 class UrlParserService implements UrlParserInterface
 {
     private $urlData;
