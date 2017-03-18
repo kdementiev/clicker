@@ -44,14 +44,29 @@ twig:
 # Assetic Configuration
 assetic:
     debug:    "%kernel.debug%"
+    bundles:  []
     use_controller: false
     assets:
         bootstrap:
             inputs:
                 - '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap.min.css'
+            output: 'css/bootstrap.min.css'
         bootstrap_js:
             inputs:
                 - '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.min.js'
+            output: 'js/bootstrap.min.js'
+        glyphicon_font_ttf:
+            inputs:
+                - '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf'
+            output: 'fonts/glyphicons-halflings-regular.ttf'
+        glyphicon_font_woff:
+            inputs:
+                - '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'
+            output: 'fonts/glyphicons-halflings-regular.woff'
+        glyphicon_font_woff2:
+            inputs:
+                - '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'
+            output: 'fonts/glyphicons-halflings-regular.woff2'
 
 # Doctrine Configuration
 doctrine:

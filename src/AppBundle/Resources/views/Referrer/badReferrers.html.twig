@@ -16,12 +16,12 @@
             </thead>
             <tbody>
             {% for badReferrerClick in badReferrerClicks %}
-                <tr>
+                <tr {% if is_bad_domain(badReferrerClick.referrer) %}class="tr-background-error"{% endif %} >
                     <td>{{ loop.index }}</td>
                     <td>{{ badReferrerClick.referrer }}</td>
                     <td>
                         <button type="button" data-click-id="{{ badReferrerClick.id }}" title="Add domain to black list" class="btn btn-default btn-xs add-to-black-btn">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                             {{ 'page.referrer.bad_referrers.add_to_black_list'|trans }}
                         </button>
                     </td>

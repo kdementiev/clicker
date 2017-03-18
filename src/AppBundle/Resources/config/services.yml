@@ -1,5 +1,8 @@
 parameters:
     app.link.generator.class:  AppBundle\Services\Implementation\LinkGeneratorService
+    app.url.parser.class:  AppBundle\Services\Implementation\UrlParserService
+
+    app.bad.domain.extension.class: AppBundle\Twig\BadDomainExtension
 
 services:
 
@@ -8,3 +11,13 @@ services:
         class: '%app.link.generator.class%'
         calls:
             - [setRouter, ["@router"]]
+
+    app.url.parser:
+        class: '%app.url.parser.class%'
+
+     #twig
+
+    app.bad.domain.extension:
+        class: '%app.bad.domain.extension.class%'
+        tags:
+            - { name: twig.extension }

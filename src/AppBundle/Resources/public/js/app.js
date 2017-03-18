@@ -3,9 +3,9 @@
         var $this = $(this),
             clickId = $this.data('click-id');
 
-        $.post(Routing.generate('default_remove_file', {'id': clickId}), [], function (data) {
+        $.post(Routing.generate('referrer_add_to_black_list', {'id': clickId}), [], function (data) {
             if (data.success) {
-                $this.parents('tr').empty();
+                console.log('success');
             }
         });
 
