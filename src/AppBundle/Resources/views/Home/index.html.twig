@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <h2>Home page</h2>
+    <h2>{{ 'page.home.title'|trans }}</h2>
 
     {{ render(controller('AppBundle:Click:showAll')) }}
 {% endblock %}

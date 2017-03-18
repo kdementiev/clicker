@@ -9,7 +9,7 @@
 
         {% block stylesheets %}
             <link href="{{ asset('assetic/bootstrap.css') }}" rel="stylesheet">
-            <link href="{{ asset('bundles/app/style.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/app/css/style.css') }}" rel="stylesheet">
         {% endblock %}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -23,41 +23,14 @@
     </head>
     <body>
         <div class="container">
-            <!-- Static navbar -->
-            <nav class="navbar navbar-default">
-                {% if app.request.get('_route') != '' %}
-                    {% set currentPath = path(app.request.get('_route'), app.request.get('_route_params')) %}
-                {% else %}
-                    {% set currentPath = path('home_index') %}
-                {% endif %}
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="{{ path('home_index') }}">Clicker</a>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li {% if currentPath == path('home_index') %}class="active"{% endif %}><a href="{{ path('home_index') }}">Home</a></li>
-                            <li {% if currentPath == path('link_index') %}class="active"{% endif %}><a href="{{ path('link_index') }}">Links</a></li>
-                            <li {% if currentPath == path('referrer_bad_referrers') %}class="active"{% endif %}><a href="{{ path('referrer_bad_referrers') }}">Bad Referrers</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li {% if currentPath == path('about_index') %}class="active"{% endif %}><a href="{{ path('about_index') }}">About</a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div><!--/.container-fluid -->
-            </nav>
-
+            {{ include('navbar.html.twig') }}
             {% block content %}{% endblock %}
         </div>
 
         {% block javascripts %}
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
             <script src="{{ asset('assetic/bootstrap_js.js') }}"></script>
         {% endblock %}
     </body>

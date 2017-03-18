@@ -1,28 +1,28 @@
 <div class="panel panel-default">
-    <div class="panel-heading">Click List</div>
+    <div class="panel-heading">{{ 'page.click.show_all.click_list'|trans }}</div>
 
     <table class="table table-hover">
         <thead>
         <tr>
             <th>#</th>
-            <th>Ip</th>
-            <th>Referrer</th>
-            <th>UserAgent</th>
-            <th>Param1</th>
-            <th>Param2</th>
-            <th>Errors</th>
+            <th>{{ 'page.click.show_all.ip'|trans }}</th>
+            <th>{{ 'page.click.show_all.referrer'|trans }}</th>
+            <th>{{ 'page.click.show_all.user_agent'|trans }}</th>
+            <th>{{ 'page.click.show_all.param_1'|trans }}</th>
+            <th>{{ 'page.click.show_all.param_2'|trans }}</th>
+            <th>{{ 'page.click.show_all.errors'|trans }}</th>
         </tr>
         </thead>
         <tbody>
         {% for click in clicks %}
-            <tr {% if click.error > 0 %}class="bad-referer"{% endif %}>
-                <td>{{ click.id }}</td>
+            <tr {% if click.error > 0 %}class="tr-background-error"{% endif %}>
+                <td><b>{{ click.id }}</b></td>
                 <td>{{ click.ip }}</td>
                 <td>{{ click.referrer }}</td>
                 <td>{{ click.userAgent }}</td>
                 <td>{{ click.firstParam }}</td>
                 <td>{{ click.secondParam }}</td>
-                <td>{{ click.error }}</td>
+                <td><b>{{ click.error }}</b></td>
             </tr>
         {% endfor %}
         </tbody>

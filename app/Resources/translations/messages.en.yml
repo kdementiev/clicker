@@ -1,0 +1,36 @@
+navbar:
+    clicker: Clicker
+    home: Home
+    links: Links
+    bad_referrers: Bad Referrers
+    about: About
+
+page:
+    click:
+        error:
+            title: Error
+        show_all:
+            click_list: Click List
+            ip: Ip
+            referrer: Referrer
+            user_agent: UserAgent
+            param_1: Param1
+            param_2: Param2
+            errors: Errors
+        success:
+            title: Success
+
+    home:
+        title: Home page
+
+    link:
+        title: Links
+        heading: Info
+        processing: Click link to processing
+        link: Link
+
+    referrer:
+        bad_referrers:
+            heading: List
+            referrer: Referrer
+            add_to_black_list: To black list

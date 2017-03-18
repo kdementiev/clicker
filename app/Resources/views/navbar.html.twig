@@ -1,0 +1,37 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default">
+    {% if app.request.get('_route') != '' %}
+        {% set currentPath = path(app.request.get('_route'), app.request.get('_route_params')) %}
+    {% else %}
+        {% set currentPath = path('home_index') %}
+    {% endif %}
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('home_index') }}">{{ 'navbar.clicker'|trans }}</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li {% if currentPath == path('home_index') %}class="active"{% endif %}>
+                    <a href="{{ path('home_index') }}">{{ 'navbar.home'|trans }}</a>
+                </li>
+                <li {% if currentPath == path('link_index') %}class="active"{% endif %}>
+                    <a href="{{ path('link_index') }}">{{ 'navbar.links'|trans }}</a>
+                </li>
+                <li {% if currentPath == path('referrer_bad_referrers') %}class="active"{% endif %}>
+                    <a href="{{ path('referrer_bad_referrers') }}">{{ 'navbar.bad_referrers'|trans }}</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li {% if currentPath == path('about_index') %}class="active"{% endif %}>
+                    <a href="{{ path('about_index') }}">{{ 'navbar.about'|trans }}</a>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>

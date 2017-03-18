@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Click;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -15,10 +16,19 @@ class ReferrerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $badReferrers = $em->getRepository(Click::class)->getBadReferrers();
+        $badReferrerClicks = $em->getRepository(Click::class)->getBadReferrers();
 
         return $this->render('@App/Referrer/badReferrers.html.twig', [
-            'badReferrers' => $badReferrers
+            'badReferrerClicks' => $badReferrerClicks
         ]);
+    }
+
+    /**
+     * @Route("/blacklist/{id}", name="referrer_add_to_black_list", condition="request.isXmlHttpRequest()")
+     * @Method("POST")
+     */
+    public function addToBlackList(Click $click)
+    {
+
     }
 }
