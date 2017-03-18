@@ -1,0 +1,10 @@
+parameters:
+    app.link.generator.class:  AppBundle\Services\Implementation\LinkGeneratorService
+
+services:
+
+    # services
+    app.link.generator:
+        class: '%app.link.generator.class%'
+        calls:
+            - [setRouter, ["@router"]]

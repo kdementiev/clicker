@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Clicks List</div>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Ip</th>
+            <th>Referer</th>
+            <th>UserAgent</th>
+            <th>Param1</th>
+            <th>Param2</th>
+            <th>Errors</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for click in clicks %}
+            <tr>
+                <td>{{ click.id }}</td>
+                <td>{{ click.ip }}</td>
+                <td>{{ click.referrer }}</td>
+                <td>{{ click.userAgent }}</td>
+                <td>{{ click.firstParam }}</td>
+                <td>{{ click.secondParam }}</td>
+                <td>{{ click.error }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
