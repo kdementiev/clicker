@@ -49,3 +49,5 @@ page:
             add_to_black_list: To black list
             remove_from_black_list: From black list
             no_referrers: No one referrer found
+    error:
+        back_to_home: Back to home
