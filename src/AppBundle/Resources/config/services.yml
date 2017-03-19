@@ -4,6 +4,7 @@ parameters:
     app.bad.domain:  AppBundle\Services\Implementation\BadDomainService
     app.bad.domain.extension.class: AppBundle\Twig\BadDomainExtension
     app.entity.bad.domain: AppBundle\Entity\BadDomain
+    app.bad.domains.repository.class: AppBundle\Repository\Implementation\BadDomainRepository
 
 services:
 
@@ -29,7 +30,7 @@ services:
 
     # repository
     app.bad.domains.repository:
-        class: AppBundle\Repository\BadDomainRepository
+        class: '%app.bad.domains.repository.class%'
         factory: ["@doctrine", getRepository]
         arguments:
             - '%app.entity.bad.domain%'

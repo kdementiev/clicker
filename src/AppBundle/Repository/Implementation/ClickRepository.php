@@ -1,10 +1,11 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Implementation;
 
+use AppBundle\Repository\ClickRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 
-class ClickRepository extends EntityRepository
+class ClickRepository extends EntityRepository implements ClickRepositoryInterface
 {
     public function getBadReferrers()
     {

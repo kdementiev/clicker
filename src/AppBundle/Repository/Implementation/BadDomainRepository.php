@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace AppBundle\Repository\Implementation;
 
+use AppBundle\Repository\BadDomainRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 
 
