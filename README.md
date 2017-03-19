@@ -12,26 +12,20 @@ A Symfony project created on March 18, 2017, 8:16 am.
 
 
 ```
-#!sh
-
 php composer.phar install
 ```
 
-
-**3. Настраиваем базу данных в файле *app/config/parameters.yml* **
+**3. Настраиваем базу данных в файле** *app/config/parameters.yml*
 
 **4. Создаем таблицы в базе данных**
 
 
 ```
-#!sh
-
 php bin/console doctrine:schema:create
 ```
 или
 
 ```
-#!sh
 php bin/console doctrine:migrations:migrate
 ```
 
@@ -39,8 +33,6 @@ php bin/console doctrine:migrations:migrate
 
 
 ```
-#!sh
-
 rm -Rf web/css
 rm -Rf web/js
 rm -Rf web/fonts
@@ -53,8 +45,6 @@ bin/console assetic:dump --env=prod
 
 
 ```
-#!sh
-
 rm -Rf web/css; rm -Rf web/js; rm -Rf web/fonts; rm -Rf web/bundles; bin/console assets:install; bin/console assetic:dump --env=prod
 ```
 
@@ -62,7 +52,5 @@ rm -Rf web/css; rm -Rf web/js; rm -Rf web/fonts; rm -Rf web/bundles; bin/console
 
 
 ```
-#!sh
-
 bin/console cache:clear --env=prod
 ```
