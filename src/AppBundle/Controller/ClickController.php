@@ -68,7 +68,7 @@ class ClickController extends Controller
     }
 
     /**
-     * @Route("/error/{id}", name="click_error")
+     * @Route("/_error/{id}", name="click_error")
      */
     public function errorAction(Click $click)
     {
