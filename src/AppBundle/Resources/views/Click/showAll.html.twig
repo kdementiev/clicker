@@ -1,5 +1,5 @@
-<div class="panel panel-default">
-    <div class="panel-heading">{{ 'page.click.show_all.click_list'|trans }}</div>
+<div class="panel panel-default click-table-panel">
+    <div class="panel-heading click-table-panel-heading">{{ 'page.click.show_all.click_list'|trans }}</div>
 
     <table class="table table-hover" id="click-datatable-js">
         <thead>
@@ -24,7 +24,7 @@
                 <td>{{ click.firstParam }}</td>
                 <td>{{ click.secondParam }}</td>
                 <td><b>{{ click.error }}</b></td>
-                <td><b>{{ click.badDomain }}</b></td>
+                <td><b>{{ click.badDomain ? 'page.click.show_all.yes'|trans : 'page.click.show_all.no'|trans }}</b></td>
             </tr>
         {% endfor %}
         </tbody>

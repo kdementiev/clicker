@@ -7,5 +7,23 @@
 }
 
 .tr-background-error {
-    background-color: rgba(255, 151, 158, 0.14);
+    background-color: rgba(255, 151, 158, 0.14) !important;
+}
+
+.click-table-panel-heading {
+    margin-bottom: 20px;
+}
+
+.paginate_button {
+    padding: 0 !important;
+    margin-left: 0 !important;
+}
+
+table.dataTable thead th, table.dataTable thead td,
+table.dataTable.no-footer {
+    border-bottom: 1px solid #ddd !important;
+}
+
+#click-datatable-js_filter, .dataTables_paginate {
+    margin-right: 10px;
 }

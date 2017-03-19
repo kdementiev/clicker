@@ -19,6 +19,8 @@ page:
             param_2: Param2
             errors: Errors
             bad_domain: Bad
+            yes: Yes
+            no: No
         success:
             title: Success
 
