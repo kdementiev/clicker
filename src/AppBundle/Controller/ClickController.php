@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Click;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,17 +25,10 @@ class ClickController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $click = Click::createByRequest($request);
-
         $errors = $this->get('validator')->validate($click);
 
         if (count($errors) > 0) {
-            $alreadyIssetClick = $em->getRepository(Click::class)->findOneBy([
-                'userAgent' => $click->getUserAgent(),
-                'ip' => $click->getIp(),
-                'referrer' => $click->getReferrer(),
-                'firstParam' => $click->getFirstParam()
-            ]);
-
+            $alreadyIssetClick = $this->getAlreadyIssetClick($em, $click);
             $alreadyIssetClick->increaseErrorCounter();
 
             if ($this->get('app.bad.domain')->isInBlackList($click->getReferrer())) {
@@ -116,5 +110,26 @@ class ClickController extends Controller
         return $this->render('@App/Click/showAll.html.twig', [
             'clicks' => $clicks
         ]);
+    }
+
+    /**
+     * @param EntityManager $em
+     * @param Click $click
+     * @return Click
+     */
+    private function getAlreadyIssetClick(EntityManager $em, Click $click)
+    {
+        $alreadyIssetClick = $em->getRepository(Click::class)->findOneBy([
+            'userAgent' => $click->getUserAgent(),
+            'ip' => $click->getIp(),
+            'referrer' => $click->getReferrer(),
+            'firstParam' => $click->getFirstParam()
+        ]);
+
+        if (!$alreadyIssetClick) {
+            throw $this->createNotFoundException('The click does not exist');
+        }
+
+        return $alreadyIssetClick;
     }
 }
