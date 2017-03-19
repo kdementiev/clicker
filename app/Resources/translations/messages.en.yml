@@ -10,6 +10,7 @@ page:
         error:
             title: Error
             redirect_notice: <i>Redirecting to <b>%url%</b> after <b>5</b> seconds</i>
+            back: Back to Links
         show_all:
             click_list: Click List
             ip: Ip
@@ -29,6 +30,7 @@ page:
                 no_records: No records
         success:
             title: Success
+            back: Back to Links
 
     home:
         title: Home page
@@ -46,3 +48,4 @@ page:
             referrer: Referrer
             add_to_black_list: To black list
             remove_from_black_list: From black list
+            no_referrers: No one referrer found

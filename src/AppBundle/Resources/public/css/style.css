@@ -6,6 +6,10 @@
     margin-top: 20px;
 }
 
+.bottom-margin {
+    margin-bottom: 20px;
+}
+
 .tr-background-error {
     background-color: rgba(255, 151, 158, 0.14) !important;
 }

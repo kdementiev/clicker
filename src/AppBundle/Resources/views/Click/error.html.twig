@@ -5,15 +5,19 @@
         <div class="panel-heading">
             <h3 class="panel-title">{{ 'page.click.error.title'|trans }}</h3>
         </div>
+
         <div class="panel-body">
-            You click #[{{ click.id }}] <b>already done</b>!<br /><br />
+            You click #[{{ click.id }}] <b>already done</b>!
 
             {% for flash_message in app.session.flashBag.get('redirect_notice') %}
+                <br /><br />
                 <div class="flash-notice">
                     {{ flash_message|raw }}
                 </div>
             {% endfor %}
         </div>
     </div>
+
+    <a href="{{ path('link_index') }}" class="btn btn-info bottom-margin">{{ 'page.click.error.back'|trans }}</a>
 {% endblock %}
 
