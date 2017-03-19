@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+
 class ReferrerController extends Controller
 {
     /**
@@ -26,7 +27,7 @@ class ReferrerController extends Controller
     }
 
     /**
-     * @Route("/blacklist/{id}",
+     * @Route("/blacklist/add/{id}",
      *     name="referrer_add_to_black_list",
      *     condition="request.isXmlHttpRequest()",
      *     options={"expose"=true})
@@ -38,15 +39,50 @@ class ReferrerController extends Controller
             throw $this->createNotFoundException('The click does not exist');
         }
 
+        $em = $this->getDoctrine()->getManager();
+
         $referrer = $click->getReferrer();
         $basePart = $this->get('app.url.parser')->parse($referrer)->getBasePart();
 
-        $badDomain = new BadDomain();
-        $badDomain->setName($basePart);
+        $badDomain = $em->getRepository(BadDomain::class)->findOneBy(['name' => $basePart]);
+
+        if (!$badDomain) {
+            $badDomain = new BadDomain();
+            $badDomain->setName($basePart);
+
+            $em->persist($badDomain);
+            $em->flush();
+        }
+
+        return new JsonResponse([
+            'success' => true,
+        ]);
+    }
+
+    /**
+     * @Route("/blacklist/remove/{id}",
+     *     name="referrer_remove_from_black_list",
+     *     condition="request.isXmlHttpRequest()",
+     *     options={"expose"=true})
+     * @Method("POST")
+     */
+    public function removeFromBlackList(Click $click)
+    {
+        if (!$click) {
+            throw $this->createNotFoundException('The click does not exist');
+        }
 
         $em = $this->getDoctrine()->getManager();
-        $em->persist($badDomain);
-        $em->flush();
+
+        $referrer = $click->getReferrer();
+        $basePart = $this->get('app.url.parser')->parse($referrer)->getBasePart();
+
+        $badDomain = $em->getRepository(BadDomain::class)->findOneBy(['name' => $basePart]);
+
+        if ($badDomain) {
+            $em->remove($badDomain);
+            $em->flush();
+        }
 
         return new JsonResponse([
             'success' => true,

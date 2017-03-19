@@ -1,7 +1,9 @@
 parameters:
     app.link.generator.class:  AppBundle\Services\Implementation\LinkGeneratorService
     app.url.parser.class:  AppBundle\Services\Implementation\UrlParserService
+    app.bad.domain:  AppBundle\Services\Implementation\BadDomainService
     app.bad.domain.extension.class: AppBundle\Twig\BadDomainExtension
+    app.entity.bad.domain: AppBundle\Entity\BadDomain
 
 services:
 
@@ -14,8 +16,20 @@ services:
     app.url.parser:
         class: '%app.url.parser.class%'
 
-     #twig
+    app.bad.domain:
+        class: '%app.bad.domain%'
+        autowire: true
+
+    # twig
     app.bad.domain.extension:
         class: '%app.bad.domain.extension.class%'
         tags:
             - { name: twig.extension }
+        autowire: true
+
+    # repository
+    app.bad.domains.repository:
+        class: AppBundle\Repository\BadDomainRepository
+        factory: ["@doctrine", getRepository]
+        arguments:
+            - '%app.entity.bad.domain%'

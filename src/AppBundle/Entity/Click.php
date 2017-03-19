@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\ClickRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ClickRepository")
  * @ORM\Table(name="click")
  * @UniqueEntity(fields={"userAgent", "ip", "referrer", "firstParam"})
  */

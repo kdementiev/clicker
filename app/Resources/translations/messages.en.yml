@@ -31,6 +31,8 @@ page:
 
     referrer:
         bad_referrers:
+            title: Bad Referrers
             heading: List
             referrer: Referrer
             add_to_black_list: To black list
+            remove_from_black_list: From black list

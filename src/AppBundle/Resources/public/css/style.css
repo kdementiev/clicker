@@ -1,3 +1,7 @@
+.glyphicon-unlock:before {
+    content: "\E205";
+}
+
 .navbar {
     margin-top: 20px;
 }

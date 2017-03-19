@@ -1,28 +1,39 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <h2>Bad Referrers</h2>
+    <h2>{{ 'page.referrer.bad_referrers.title'|trans }}</h2>
 
     <div class="panel panel-default">
         <div class="panel-heading">{{ 'page.referrer.bad_referrers.heading'|trans }}</div>
 
         <table class="table table-hover">
             <thead>
-            <tr>
-                <th>#</th>
-                <th>{{ 'page.referrer.bad_referrers.referrer'|trans }}</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>#</th>
+                    <th>{{ 'page.referrer.bad_referrers.referrer'|trans }}</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
             {% for badReferrerClick in badReferrerClicks %}
-                <tr {% if is_bad_domain(badReferrerClick.referrer) %}class="tr-background-error"{% endif %} >
+                {% set isBlackListed = is_bad_domain(badReferrerClick.referrer) %}
+
+                <tr {{ isBlackListed ? "class='tr-background-error'"}}>
                     <td>{{ loop.index }}</td>
                     <td>{{ badReferrerClick.referrer }}</td>
-                    <td>
-                        <button type="button" data-click-id="{{ badReferrerClick.id }}" title="Add domain to black list" class="btn btn-default btn-xs add-to-black-btn">
-                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-                            {{ 'page.referrer.bad_referrers.add_to_black_list'|trans }}
+                    <td class="action-btn-js">
+                        <button type="button"
+                                data-click-id="{{ badReferrerClick.id }}"
+                                title="Add domain to black list"
+                                class="btn btn-default btn-xs {{ isBlackListed ? "remove-from-black-btn-js" : "add-to-black-btn-js"}}">
+
+                            <span class="glyphicon {{ isBlackListed ? "glyphicon-unlock" : "glyphicon-lock"}}" aria-hidden="true"></span>
+
+                            {% if isBlackListed %}
+                                <span class="btn-text">{{ 'page.referrer.bad_referrers.remove_from_black_list'|trans }}</span>
+                            {% else %}
+                                <span class="btn-text">{{ 'page.referrer.bad_referrers.add_to_black_list'|trans }}</span>
+                            {% endif %}
                         </button>
                     </td>
                 </tr>
