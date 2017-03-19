@@ -21,12 +21,12 @@ class BadDomainService implements BadDomainInterface
     }
 
     /**
-     * @param $url
+     * @param $referrerUrl
      * @return bool
      */
-    public function isInBlackList($url)
+    public function isInBlackList($referrerUrl)
     {
-        $basePart = $this->urlParser->parse($url)->getBasePart();
+        $basePart = $this->urlParser->parse($referrerUrl)->getBasePart();
 
         foreach ($this->backListDomainArray as $domain) {
             if ($domain['name'] === $basePart) {

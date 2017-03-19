@@ -14,6 +14,10 @@ class LinkController extends Controller
     {
         $linksCount = $this->getParameter("links_count");
 
+        if (!$linksCount || $linksCount < 1) {
+            throw new \InvalidArgumentException("Maybe links_count not defined in parameters");
+        }
+
         $links = $this->get('app.link.generator')->generate($linksCount);
 
         return $this->render('@App/Link/index.html.twig', [

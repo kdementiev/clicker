@@ -11,6 +11,7 @@
             <th>{{ 'page.click.show_all.param_1'|trans }}</th>
             <th>{{ 'page.click.show_all.param_2'|trans }}</th>
             <th>{{ 'page.click.show_all.errors'|trans }}</th>
+            <th>{{ 'page.click.show_all.bad_domain'|trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                 <td>{{ click.firstParam }}</td>
                 <td>{{ click.secondParam }}</td>
                 <td><b>{{ click.error }}</b></td>
+                <td><b>{{ click.badDomain }}</b></td>
             </tr>
         {% endfor %}
         </tbody>

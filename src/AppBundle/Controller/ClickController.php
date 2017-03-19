@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class ClickController extends Controller
 {
@@ -36,6 +37,12 @@ class ClickController extends Controller
 
             $alreadyIssetClick->increaseErrorCounter();
 
+            if ($this->get('app.bad.domain')->isInBlackList($click->getReferrer())) {
+                $alreadyIssetClick->setBadDomain(true);
+            } else {
+                $alreadyIssetClick->setBadDomain(false);
+            }
+
             $em->persist($alreadyIssetClick);
             $em->flush();
 
@@ -57,6 +64,10 @@ class ClickController extends Controller
             throw $this->createNotFoundException('The click does not exist');
         }
 
+        if ($click->getError() > 0) {
+            throw new RouteNotFoundException("Fired error route with errors click object");
+        }
+
         return $this->render('@App/Click/success.html.twig', [
             'click' => $click
         ]);
@@ -71,9 +82,27 @@ class ClickController extends Controller
             throw $this->createNotFoundException('The click does not exist');
         }
 
-        return $this->render('@App/Click/error.html.twig', [
-            'click' => $click
-        ]);
+        if ($click->getError() == 0) {
+            throw new RouteNotFoundException("Fired error route with no errors click object");
+        }
+
+        $response = new Response();
+
+        if ($click->getBadDomain()) {
+            $domainToRedirect = $this->getParameter("domain_to_redirect");
+
+            if (!$domainToRedirect) {
+                throw new \InvalidArgumentException("Maybe domain_to_redirect not defined in parameters");
+            }
+
+            $this->addFlash('redirect_notice',
+                $this->get('translator')->trans('page.click.error.redirect_notice', ['%url%' => $domainToRedirect])
+            );
+
+            $response->headers->set('Refresh', '5; url=' . $domainToRedirect);
+        }
+
+        return $this->render('@App/Click/error.html.twig', ['click' => $click], $response);
     }
 
     /**

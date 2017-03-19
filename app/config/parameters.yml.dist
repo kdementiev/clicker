@@ -19,3 +19,4 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     links_count_param: 10
+    domain_to_redirect_param: https://www.google.com

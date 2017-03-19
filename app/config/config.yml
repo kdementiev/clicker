@@ -9,6 +9,7 @@ imports:
 parameters:
     locale: en
     links_count: "%links_count_param%"
+    domain_to_redirect: "%domain_to_redirect_param%"
 
 framework:
     #esi:             ~

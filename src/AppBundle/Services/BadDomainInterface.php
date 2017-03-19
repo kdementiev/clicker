@@ -6,8 +6,8 @@ namespace AppBundle\Services;
 interface BadDomainInterface
 {
     /**
-     * @param $url
+     * @param $referrerUrl
      * @return bool
      */
-    public function isInBlackList($url);
+    public function isInBlackList($referrerUrl);
 }

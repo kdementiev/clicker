@@ -9,6 +9,7 @@ page:
     click:
         error:
             title: Error
+            redirect_notice: <i>Redirecting to <b>%url%</b> after <b>5</b> seconds</i>
         show_all:
             click_list: Click List
             ip: Ip
@@ -17,6 +18,7 @@ page:
             param_1: Param1
             param_2: Param2
             errors: Errors
+            bad_domain: Bad
         success:
             title: Success
 
