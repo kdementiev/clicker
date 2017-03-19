@@ -9,14 +9,14 @@ use AppBundle\Services\UrlParserInterface;
 class BadDomainService implements BadDomainInterface
 {
     private $urlParser;
-    private $backListDomainArray;
+    private $blackListDomainArray;
 
     /**
      * BadDomainService constructor.
      */
     public function __construct(BadDomainRepositoryInterface $badDomainRepository, UrlParserInterface $urlParser)
     {
-        $this->backListDomainArray = $badDomainRepository->getBlackListDomainArray();
+        $this->blackListDomainArray = $badDomainRepository->getBlackListDomainArray();
         $this->urlParser = $urlParser;
     }
 
@@ -28,7 +28,7 @@ class BadDomainService implements BadDomainInterface
     {
         $basePart = $this->urlParser->parse($referrerUrl)->getBasePart();
 
-        foreach ($this->backListDomainArray as $domain) {
+        foreach ($this->blackListDomainArray as $domain) {
             if ($domain['name'] === $basePart) {
                 return true;
             }
