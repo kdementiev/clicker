@@ -1,6 +1,20 @@
 <div class="panel panel-default click-table-panel">
     <div class="panel-heading click-table-panel-heading">{{ 'page.click.show_all.click_list'|trans }}</div>
 
+    <div class="panel panel-default filter-panel">
+        <div class="panel-body">
+            {{ 'page.click.show_all.filters'|trans }}:
+            <label class="filter-container">
+                <input class="filter-column filter-column-11" id="show-no-errors-js" type="checkbox" value="Show archive">
+                {{ 'page.click.show_all.no_errors'|trans }}
+            </label>
+            <label class="filter-container">
+                <input class="filter-column filter-column-11" id="show-bad-js" type="checkbox" value="Show archive">
+                {{ 'page.click.show_all.bad'|trans }}
+            </label>
+        </div>
+    </div>
+
     <table class="table table-hover" id="click-datatable-js">
         <thead>
         <tr>

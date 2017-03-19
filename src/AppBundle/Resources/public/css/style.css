@@ -27,3 +27,11 @@ table.dataTable.no-footer {
 #click-datatable-js_filter, .dataTables_paginate {
     margin-right: 10px;
 }
+
+.click-table-panel .filter-container {
+    margin-left: 20px;
+}
+
+.filter-panel {
+    margin: 0 20px 20px;
+}

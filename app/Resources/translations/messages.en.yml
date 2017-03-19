@@ -21,6 +21,12 @@ page:
             bad_domain: Bad
             yes: Yes
             no: No
+            filters: Filters
+            no_errors: No errors only
+            bad: Bad only
+            datatable:
+                not_found: Nothing was found
+                no_records: No records
         success:
             title: Success
 
